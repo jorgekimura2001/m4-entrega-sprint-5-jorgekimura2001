@@ -1,5 +1,7 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Addresses } from "./addresses.entity";
+import { Category } from "./categories.entity";
+import { SchedulesUserProperties } from "./schedules_user_properties.entity";
 
 @Entity('properties')
 
@@ -11,7 +13,7 @@ export class Properties{
     @Column({default: false})
     sold: boolean
 
-    @Column()
+    @Column({type: "decimal", precision: 12, scale: 2})
     value: number
 
     @Column()
@@ -25,4 +27,10 @@ export class Properties{
 
     @OneToOne(() => Addresses, { eager: true }) @JoinColumn()
     address: Addresses
+
+    @ManyToOne(() => Category)
+    category: Category
+
+    @OneToMany(() => SchedulesUserProperties, schedulesUserProperties => schedulesUserProperties.properties)
+    SchedulesUserProperties: SchedulesUserProperties[]
 }

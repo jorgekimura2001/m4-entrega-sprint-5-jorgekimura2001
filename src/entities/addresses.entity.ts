@@ -9,16 +9,16 @@ export class Addresses{
     @Column()
     district: string
 
-    @Column()
+    @Column({ length: 8 })
     zipCode: string
     
-    @Column()
+    @Column({nullable: true})
     number: string
 
     @Column()
     city: string
 
-    @Column()
+    @Column({ length: 2 })
     state: string
 
 }
