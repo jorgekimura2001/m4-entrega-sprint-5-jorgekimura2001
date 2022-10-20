@@ -8,14 +8,14 @@ export class SchedulesUserProperties{
     readonly id: string
 
     @Column({ type: "date" })
-    date: Date
+    date: string
 
     @Column({ type: "time" })
-    hour: Date
+    hour: string
 
     @ManyToOne(() => User)
     user: User
 
-    @ManyToOne(() => Properties)
+    @ManyToOne(() => Properties, { eager: true })
     properties: Properties
 }

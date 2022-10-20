@@ -5,49 +5,68 @@ import { User } from "../../entities/users.entity";
 import { AppError } from "../../errors/appError";
 import { IScheduleRequest } from "../../interfaces/schedules";
 
-const createSchedulesService = async({date, hour, propertyId}: IScheduleRequest, userId: string) => {
+const createSchedulesService = async (
+  { date, hour, propertyId }: IScheduleRequest,
+  userId: string
+) => {
+  const propertyRepository = AppDataSource.getRepository(Properties);
 
-    const propertyRepository = AppDataSource.getRepository(Properties)
+  const schedulesRepository = AppDataSource.getRepository(
+    SchedulesUserProperties
+  );
 
-    const schedulesRepository = AppDataSource.getRepository(SchedulesUserProperties)
+  const userRepository = AppDataSource.getRepository(User);
 
-    const userRepository = AppDataSource.getRepository(User)
+  const properties = await propertyRepository.findOneBy({
+    id: propertyId,
+  });
 
-    const properties = await propertyRepository.findOneBy({
-       id: propertyId
-    })
+  const user = await userRepository.findOneBy({ id: userId });
 
-    const user = await userRepository.findOneBy({id: userId})
+  if (!properties) {
+    throw new AppError("Property not found", 404);
+  }
 
-    if(!properties){
-        throw new AppError('Property not found', 404)
-    }
+  const dateTime = new Date(date + " " + hour);
 
-    const dateTrated = new Date(date)
-    const hourTrated = new Date(hour)
+  const dateTreated = `${dateTime.getFullYear()}-${
+    dateTime.getMonth() + 1
+  }-${dateTime.getDate()}`;
 
-    if(dateTrated.getDate() < 0 && dateTrated.getDate() > 5){
-        throw new AppError('Date invalid')
-    }
+  const timeTreated = `${dateTime.getHours()}:${dateTime.getMinutes()}:${dateTime.getSeconds()}`;
 
-    if(hourTrated.getHours() < 8 && hourTrated.getHours() > 18){
-        throw new AppError('Hour invalid')
-    }
+  const weekDay = dateTime.getDay();
 
-    const schedules = await schedulesRepository.findOneBy({
-        properties,
-        date: dateTrated,
-        hour: hourTrated
-    })
+  const hourTrated = dateTime.getHours();
 
-    if(!schedules){
-        throw new AppError("Schedules already exists");    
-    }
+  const schedules = await schedulesRepository.findOneBy({
+    properties,
+    date: dateTreated,
+    hour: timeTreated,
+  });
 
-    // await schedulesRepository.save({
-    //     user,
-    // })
+  console.log(schedules);
 
-}
+  if (schedules) {
+    throw new AppError("Schedules already exists");
+  }
 
-export default createSchedulesService
+  if (weekDay === 0 && weekDay > 5) {
+    throw new AppError("Date invalid");
+  }
+
+  if (hourTrated < 8 && hourTrated > 18) {
+    throw new AppError("Hour invalid");
+  }
+
+  const newSchedules = schedulesRepository.create({
+    user: user!,
+    properties: properties,
+    date: dateTreated,
+    hour: timeTreated,
+  });
+
+  return newSchedules;
+};
+
+export default createSchedulesService;

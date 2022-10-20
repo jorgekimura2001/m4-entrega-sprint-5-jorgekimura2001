@@ -7,12 +7,12 @@ import { IUserUpdate } from "../../interfaces/users"
 const updateUserService = async (data: IUserUpdate, id: string, isAdm: boolean, idUser: string) => {
 
     if(idUser !== id && isAdm === false ){
-        throw new AppError('User can only update himself and not others', 401)
+        throw new AppError('User is not adm or user can update only himself and not others', 401)
     }
 
-    if(isAdm === false){
-        throw new AppError('User is not admin', 401)
-    }
+    // if(isAdm === false && idUser !== id){
+    //     throw new AppError('User is not admin', 401)
+    // }
 
     if(data.name !== undefined || data.email !== undefined || data.password !== undefined){
         const userRepository = AppDataSource.getRepository(User)
