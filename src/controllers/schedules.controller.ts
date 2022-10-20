@@ -1,3 +1,4 @@
+import { instanceToPlain } from "class-transformer";
 import { Request, Response } from "express";
 import createSchedulesService from "../services/schedules/createSchedules.service";
 import listSchedulesService from "../services/schedules/listSchedules.service";
@@ -19,6 +20,6 @@ export const listSchedulesController = async(req: Request, res: Response)  => {
 
     const schedulesReserved = await listSchedulesService(id)
 
-    return res.json(schedulesReserved)
+    return res.json(instanceToPlain(schedulesReserved))
 
 }

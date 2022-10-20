@@ -32,5 +32,5 @@ export class Properties{
     category: Category
 
     @OneToMany(() => SchedulesUserProperties, schedulesUserProperties => schedulesUserProperties.properties)
-    SchedulesUserProperties: SchedulesUserProperties[]
+    schedules: SchedulesUserProperties[]
 }

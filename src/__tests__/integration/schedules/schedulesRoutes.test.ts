@@ -120,7 +120,7 @@ describe("/schedules", () => {
         const adminLoginResponse = await request(app).post("/login").send(mockedAdminLogin);
         const properties = await request(app).get('/properties')
         const response = await request(app).get(`/schedules/properties/${properties.body[0].id}`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-
+        console.log(response.body)
         expect(response.body).toHaveProperty("schedules")
         expect(response.body.schedules[0]).toHaveProperty("id")
         expect(response.body.schedules[0]).toHaveProperty("date")
