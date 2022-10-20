@@ -6,6 +6,7 @@ import userRouters from "./routes/users.route"
 import sessionRouters from "./routes/sessions.route"
 import categoryRouters from "./routes/categories.route"
 import propertyRouters from "./routes/properties.route"
+import schedulesRouters from "./routes/schedules.route"
 
 
 const app = express()
@@ -14,6 +15,7 @@ app.use('/users', userRouters)
 app.use('/login', sessionRouters)
 app.use('/categories', categoryRouters)
 app.use('/properties', propertyRouters)
+app.use('/schedules', schedulesRouters)
 
 app.use(handleErrorMiddleware)
 
