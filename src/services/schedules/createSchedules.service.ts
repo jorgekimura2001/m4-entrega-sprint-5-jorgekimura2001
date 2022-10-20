@@ -28,8 +28,8 @@ const createSchedulesService = async ({ date, hour, propertyId }: IScheduleReque
   const hourTrated = dateTime.getHours();
 
   const schedules = await schedulesRepository.findOneBy({
-    date,
-    hour,
+     date,
+     hour,
   });
 
   if (weekDay === 0 || weekDay === 6) {
