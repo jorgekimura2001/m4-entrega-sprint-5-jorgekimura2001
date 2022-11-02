@@ -36,7 +36,7 @@ const createSchedulesService = async ({ date, hour, propertyId }: IScheduleReque
     throw new AppError("Date invalid");
   }
   
-  if (hourTrated <= 8 || hourTrated >= 18) { //se a hora for maior ou igual a 8 ou menor que 18
+  if (hourTrated <= 8 || hourTrated >= 18) { 
     throw new AppError("Hour invalid");
   }
 

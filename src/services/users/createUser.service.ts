@@ -1,7 +1,7 @@
 import AppDataSource from "../../data-source"
 import { User } from "../../entities/users.entity"
 import { IUserRequestValidation } from "../../interfaces/users"
-import { hash } from "bcrypt"
+import { hash } from "bcryptjs"
 import { AppError } from "../../errors/appError"
 
 const createUserService = async ({name, email, password, isAdm }: IUserRequestValidation): Promise<User> => {
