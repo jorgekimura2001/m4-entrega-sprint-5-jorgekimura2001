@@ -10,7 +10,7 @@ export const createSchedulesController = async(req: Request, res: Response) => {
     await createSchedulesService(data, userId)
 
     return res.status(201).json({
-        message: 'Schedules created with sucess'
+        message: 'Schedules created with success'
     })
 }
 

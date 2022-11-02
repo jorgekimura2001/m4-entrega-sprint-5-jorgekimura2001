@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source";
 import { Properties } from "../../entities/properties.entity";
 import { AppError } from "../../errors/appError";
 
-const listSchedulesService = async (id: string) => {
+const listSchedulesService = async (id: string): Promise<Properties> => {
 
   const propertyRepository = AppDataSource.getRepository(Properties);
 

@@ -4,7 +4,7 @@ import { User } from "../../entities/users.entity"
 import { AppError } from "../../errors/appError"
 import { IUserUpdate } from "../../interfaces/users"
 
-const updateUserService = async (data: IUserUpdate, id: string, isAdm: boolean, idUser: string) => {
+const updateUserService = async (data: IUserUpdate, id: string, isAdm: boolean, idUser: string): Promise<User> => {
 
     if(idUser !== id && isAdm === false ){
         throw new AppError('User is not adm or user can update only himself and not others', 401)
@@ -35,7 +35,7 @@ const updateUserService = async (data: IUserUpdate, id: string, isAdm: boolean, 
 
         const userUpdated = await userRepository.findOneBy({id}) 
 
-        return userUpdated
+        return userUpdated!
     }
     
     throw new AppError("Just name/email/password can be updated", 401)

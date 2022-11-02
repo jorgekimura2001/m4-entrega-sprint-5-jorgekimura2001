@@ -4,7 +4,7 @@ import { IUserRequestValidation } from "../../interfaces/users"
 import { hash } from "bcrypt"
 import { AppError } from "../../errors/appError"
 
-const createUserService = async ({name, email, password, isAdm }: IUserRequestValidation) => {
+const createUserService = async ({name, email, password, isAdm }: IUserRequestValidation): Promise<User> => {
 
     if(name === undefined || email === undefined || password === undefined || isAdm === undefined){
         throw new AppError ('Some data is missings')

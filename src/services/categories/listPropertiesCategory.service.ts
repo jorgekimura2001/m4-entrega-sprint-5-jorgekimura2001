@@ -3,7 +3,7 @@ import { Category } from "../../entities/categories.entity";
 import { Properties } from "../../entities/properties.entity";
 import { AppError } from "../../errors/appError";
 
-const listPropertiesCategoryService = async(id: string) => {
+const listPropertiesCategoryService = async(id: string): Promise<Category> => {
 
     const propertyRepository = AppDataSource.getRepository(Properties)
 

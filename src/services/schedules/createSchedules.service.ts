@@ -5,7 +5,7 @@ import { User } from "../../entities/users.entity";
 import { AppError } from "../../errors/appError";
 import { IScheduleRequest } from "../../interfaces/schedules";
 
-const createSchedulesService = async ({ date, hour, propertyId }: IScheduleRequest, userId: string) => {
+const createSchedulesService = async ({ date, hour, propertyId }: IScheduleRequest, userId: string): Promise<SchedulesUserProperties> => {
 
   const propertyRepository = AppDataSource.getRepository(Properties);
 
